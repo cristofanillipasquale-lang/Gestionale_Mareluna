@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Mare Luna Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-white">
+
+<div class="flex">
+
+    <!-- SIDEBAR -->
+    <div class="w-64 h-screen bg-gray-800 p-5">
+        <h1 class="text-2xl font-bold mb-6">🏝️ Mare Luna</h1>
+
+        <ul class="space-y-3">
+            <li class="text-gray-300">Dashboard</li>
+            <li class="text-gray-400">Prenotazioni</li>
+            <li class="text-gray-400">Camere</li>
+        </ul>
+    </div>
+
+    <!-- MAIN -->
+    <div class="flex-1 p-6">
+
+        <h2 class="text-2xl font-bold mb-6">Dashboard</h2>
+
+        <!-- CARD -->
+        <div class="grid grid-cols-3 gap-4 mb-6">
+            <div class="bg-gray-800 p-4 rounded-xl">
+                💰 Incasso<br>
+                <span class="text-2xl font-bold">€{{ totale }}</span>
+            </div>
+        </div>
+
+        <!-- FORM -->
+        <div class="bg-gray-800 p-4 rounded-xl mb-6">
+            <form method="POST" action="/aggiungi" class="grid grid-cols-4 gap-3">
+
+                <input name="nome" placeholder="Cliente" class="p-2 rounded bg-gray-700">
+
+                <select name="camera" class="p-2 rounded bg-gray-700">
+                    {% for c in camere %}
+                    <option value="{{ c.id }}">{{ c.nome }} (€{{ c.prezzo }})</option>
+                    {% endfor %}
+                </select>
+
+                <input type="date" name="checkin" class="p-2 rounded bg-gray-700">
+                <input type="date" name="checkout" class="p-2 rounded bg-gray-700">
+
+                <button class="col-span-4 bg-blue-600 p-2 rounded hover:bg-blue-700">
+                    Aggiungi Prenotazione
+                </button>
+
+            </form>
+        </div>
+
+        <!-- LISTA -->
+        <div class="space-y-3">
+            {% for p in prenotazioni %}
+            <div class="bg-gray-800 p-4 rounded-xl flex justify-between items-center">
+
+                <div>
+                    <p class="font-bold">{{ p.nome }}</p>
+                    <p class="text-sm text-gray-400">{{ p.camera_nome }}</p>
+                    <p class="text-sm text-gray-500">{{ p.checkin }} → {{ p.checkout }}</p>
+                </div>
+
+                <a href="/elimina/{{ p.id }}" 
+                   class="bg-red-500 px-3 py-1 rounded hover:bg-red-600">
+                   Elimina
+                </a>
+
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
