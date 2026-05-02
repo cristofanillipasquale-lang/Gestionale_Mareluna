@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestionale Mare Luna</title>
+</head>
+<body>
+
+<h1>Gestionale B&B - Mare Luna</h1>
+
+<!-- FORM -->
+<form method="POST" action="/aggiungi">
+    Nome: <input type="text" name="nome" required><br>
+    Camera: <input type="text" name="camera" required><br>
+    Check-in: <input type="date" name="checkin" required><br>
+    Check-out: <input type="date" name="checkout" required><br>
+
+    <button type="submit">Aggiungi</button>
+</form>
+
+<hr>
+
+<!-- TABELLA -->
+<table border="1">
+<tr>
+    <th>Nome</th>
+    <th>Camera</th>
+    <th>Check-in</th>
+    <th>Check-out</th>
+    <th>Elimina</th>
+</tr>
+
+{% for p in prenotazioni %}
+<tr>
+    <td>{{ p.nome }}</td>
+    <td>{{ p.camera }}</td>
+    <td>{{ p.checkin }}</td>
+    <td>{{ p.checkout }}</td>
+    <td><a href="/elimina/{{ p.id }}">X</a></td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>
